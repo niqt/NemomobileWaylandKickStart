@@ -183,17 +183,15 @@ ti-omap3-sgx-wayland-wsegl
 
 %end
 
+
 %post
-
-Config_Src=`gconftool-2 --get-default-source`
-
-#Set theme name
-gconftool-2 --direct --config-source $Config_Src \
-  -s -t string /meegotouch/theme/name "darko"
-
 # Set up proper target for libmeegotouch
+Config_Src=`gconftool-2 --get-default-source`
 gconftool-2 --direct --config-source $Config_Src \
-  -s -t string /meegotouch/target/name N950
+  -s -t string /meegotouch/target/name N900
+# Wait a bit more than the default 5s when starting application.
+mkdir -p /etc/xdg/mcompositor/
+echo "close-timeout-ms 15000;" > /etc/xdg/mcompositor/new-mcompositor.conf
 
 # Hack to fix the plymouth based splash screen on N900
 mv /usr/bin/ply-image /usr/bin/ply-image-real
