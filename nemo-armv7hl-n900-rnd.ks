@@ -7,7 +7,18 @@
 lang en_US.UTF-8
 keyboard us
 timezone --utc UTC
-part / --size 1500 --ondisk mmcblk0p --fstype=ext3
+
+#part / --size 1500 --ondisk mmcblk0p --fstype=ext3
+
+part / --size=3600  --ondisk mmcblk0p --fstype=ext4
+
+# This is not used currently. It is here because the /boot partition
+# needs to be the partition number 3 for the u-boot usage.
+part swap --size=8 --ondisk mmcblk0p --fstype=swap
+
+# This partition is made so that u-boot can find the kernel
+part /boot --size=32 --ondisk mmcblk0p --fstype=vfat
+
 rootpw nemo
 
 user --name nemo  --groups audio,video --password nemo 
